@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -51,6 +52,14 @@ class MonthView extends ListView {
     // listener
     private OnMonthClickListener _onMonthClickListener;
 
+    public static Locale getCurrentLocale(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return context.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            return context.getResources().getConfiguration().locale;
+        }
+    }
+
     public MonthView(Context context) {
         this(context, null);
     }
@@ -61,8 +70,8 @@ class MonthView extends ListView {
 
     public MonthView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        _monthNames = new DateFormatSymbols(Locale.getDefault()).getShortMonths();
+        Locale currentLocal = MonthView.getCurrentLocale(context);
+        _monthNames = new DateFormatSymbols(currentLocal).getShortMonths();
 
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 

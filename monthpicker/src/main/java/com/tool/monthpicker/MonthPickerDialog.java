@@ -20,6 +20,7 @@ import android.widget.DatePicker.OnDateChangedListener;
 
 
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class MonthPickerDialog extends AlertDialog implements OnClickListener, OnDateChangedListener {
@@ -208,7 +209,6 @@ public class MonthPickerDialog extends AlertDialog implements OnClickListener, O
         private MonthPickerDialog monthPickerDialog;
         private OnYearChangedListener _onYearChanged;
         private OnMonthChangedListener _onMonthChanged;
-
 
         /**
          * Build a Dialog with month and year with given context.
@@ -504,7 +504,6 @@ public class MonthPickerDialog extends AlertDialog implements OnClickListener, O
                 throw new IllegalArgumentException("Activated year should always " +
                         "in between Minimum year and maximum year.");
             }
-
 
             monthPickerDialog = new MonthPickerDialog(_context, _callBack, _activatedYear,
                     _activatedMonth);

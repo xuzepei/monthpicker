@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.tool.monthpicker.MonthPickerDialog;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,19 +50,17 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-
 
         MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(MainActivity.this, new MonthPickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(int selectedMonth, int selectedYear) {
-                monthTV.setText(String.valueOf(selectedYear) + "-" + String.valueOf(selectedMonth));
+                monthTV.setText(String.valueOf(selectedYear) + "-" + String.valueOf(selectedMonth + 1));
             }
         }, year, month);
 
-        builder.setActivatedMonth(Calendar.JULY)
+        builder.setActivatedMonth(month)
                 .setActivatedYear(year)
-                .setMinYear(1999)
+                .setMinYear(year-3)
                 .setMaxYear(year)
                 //.setMinMonth(Calendar.JANUARY)
                 .setTitle("Select Month")

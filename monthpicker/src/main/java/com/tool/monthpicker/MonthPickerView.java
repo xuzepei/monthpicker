@@ -24,6 +24,9 @@ import java.util.Locale;
 
 class MonthPickerView extends FrameLayout {
 
+    //location
+    Locale _currentLocal = Locale.getDefault();
+
     YearPickerView _yearView;
     ListView _monthList;
     static int _minYear = 1900, _maxYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -54,12 +57,23 @@ class MonthPickerView extends FrameLayout {
         _context = context;
     }
 
+    private Locale getCurrentLocale(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return context.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            return context.getResources().getConfiguration().locale;
+        }
+    }
+
     public MonthPickerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         _context = context;
         LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mInflater.inflate(R.layout.month_picker_view, this);
-        _monthNames = new DateFormatSymbols(Locale.getDefault()).getShortMonths();
+
+        _currentLocal = MonthView.getCurrentLocale(context);
+        Log.d("####", "_currentLocal: " + _currentLocal);
+        _monthNames = new DateFormatSymbols(_currentLocal).getShortMonths();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.monthPickerDialog,
                 defStyleAttr, 0);
