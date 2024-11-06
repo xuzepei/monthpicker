@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Month Picker</string>
+    <string name="label_month">月</string>
+    <string name="label_year">年</string>
+</resources>
